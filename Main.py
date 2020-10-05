@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMainWindow, QApplication
-from Sources.App import Ui_MainWindow
+from Sources.Gui import Ui_MainWindow
 import sys
 import time
 import os
@@ -12,6 +11,11 @@ from random import choice
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.setupUi(self)
+
+
+
+
 
 
 

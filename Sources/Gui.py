@@ -8,19 +8,29 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        #Main Screen
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(640, 386)
+        MainWindow.setFixedSize(640, 386)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        MainWindow.setCentralWidget(self.centralwidget)
 
+        #background picture
+        pixmap = QPixmap("Sources/background.png")
+        label = QtWidgets.QLabel(self.centralwidget)
+        label.setGeometry(QtCore.QRect(0, 0, 640, 386))
+        label.setPixmap(pixmap)
+
+        #
+
+        MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Crypto Machine"))
