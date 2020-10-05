@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
 
         #background picture
-        pixmap = QPixmap("Sources/background.png")
+        pixmap = QPixmap("Sources/Picture/background.png")
         label = QtWidgets.QLabel(self.centralwidget)
         label.setGeometry(QtCore.QRect(0, 0, 640, 386))
         label.setPixmap(pixmap)
