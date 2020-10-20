@@ -25,7 +25,10 @@ class Ui_MainWindow(object):
         label.setGeometry(QtCore.QRect(0, 0, 640, 386))
         label.setPixmap(pixmap)
 
-        #
+        #Menubar
+        menu = QtWidgets.QWidget(self.centralwidget)
+        menu.setGeometry(QtCore.QRect(0, 0, 640, 40))
+        menu.setObjectName("menubar")
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
