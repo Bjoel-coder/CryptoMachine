@@ -1,0 +1,108 @@
+@import "fonts.css";
+
+.QWidget#menubar {
+  background-color: $primary;
+  border-bottom: $std-border-size $std-border-style $std-border-color;
+}
+
+.QWidget#history { background-color: $primary; }
+
+.QPushButton#dark_background { background-color: $dark-background}
+
+.QToolTip {
+    border: $std-border-size $std-border-style $std-border-color;
+    padding: 5px;
+    border-radius: $std-border-size;
+    opacity: 200;
+}
+
+.QPushButton {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+  background-color: $light;
+  font-size: $std-font-size;
+  font-family: $std-font;
+  font-weight: $std-font-weight;
+  &:hover {
+    background-color: $std-hover-background;
+  }
+}
+
+.QPushButton#but_act_encode {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.QPushButton#but_act_decode {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.QPushButton#but_act {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: $std-border-radius;
+  border-bottom-right-radius: $std-border-radius;
+  background-color: $primary;
+  color: $light;
+  font-size: $std-font-size;
+  &:hover{
+    background-color: $hover-background-primary;
+  }
+}
+
+.QPushButton#button_how_work {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-bottom: 0px;
+  border-top-left-radius: $std-border-radius;
+  border-top-right-radius: $std-border-radius;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.QComboBox {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+  background-color: $light;
+  font-size: $std-font-size;
+  font-family: $std-font;
+  font-weight: $std-font-weight;
+  &:hover {
+    background-color: $std-hover-background;
+  }
+  &::drop-down{
+      background-color: rgba(0,0,0,0);
+      border-radius: $std-border-radius;
+  }
+}
+
+
+.QLineEdit {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+  background-color: $light;
+}
+
+.QLineEdit#line_inp_key {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-bottom: 0px;
+  border-radius: 0px;
+}
+
+.QTextEdit{
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+  background-color: $light;
+}
+
+.QTextEdit#line_inp_text{
+  border: $std-border-size $std-border-style $std-border-color;
+  border-bottom: 0px;
+  border-top-left-radius: $std-border-radius;
+  border-top-right-radius: $std-border-radius;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}

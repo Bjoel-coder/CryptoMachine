@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
         #initial values and constants
         self.n = 172
         self.selected_shifr = "Шифр Цезаря"
-        self.action = "Зашифровать"
+        self.action = "Зашифровка"
         self.how_work_is = "Как работает " + self.selected_shifr
 
         #############################################################
@@ -36,14 +36,6 @@ class Ui_MainWindow(object):
         self.label.setPixmap(self.pixmap)
 
         #############################################################
-        #DARK BACKGROUND
-
-        self.dark_background = QtWidgets.QPushButton(self.centralwidget)
-        self.dark_background.setGeometry(QtCore.QRect(0, 0, 640, 386))
-        self.dark_background.setObjectName("dark_background")
-        self.dark_background.hide()
-
-        #############################################################
         #MENUBAR
 
         #menu place
@@ -58,21 +50,23 @@ class Ui_MainWindow(object):
         #action encode
         self.but_act_encode = QtWidgets.QPushButton(self.menu)
         self.but_act_encode.setGeometry(QtCore.QRect(178, 4, 250, 36))
+        self.but_act_encode.setToolTip('<b>Нажмите</b>, чтобы изменить действие')
+        self.but_act_encode.setObjectName("but_act_encode")
 
         #action decode
         self.but_act_decode = QtWidgets.QPushButton(self.menu)
         self.but_act_decode.setGeometry(QtCore.QRect(426, 4, 36, 36))
+        self.but_act_decode.setToolTip('<b>Нажмите</b>, чтобы изменить действие')
+        self.but_act_decode.setObjectName("but_act_decode")
 
         #dropdown menu shifr
         self.select_shifr = QtWidgets.QComboBox(self.menu)
         self.select_shifr.setGeometry(QtCore.QRect(506, 4, 130, 36))
         self.select_shifr.addItem("Шифр Цезаря")
         self.select_shifr.addItem("Шифр Виженера")
-        self.select_shifr.addItem("Шифр Энигмы")
+        self.select_shifr.addItem("Транспозиция")
         self.select_shifr.addItem("Настоящие кода")
-        self.select_shifr.addItem("Публичный ключ")
-        self.select_shifr.activated[str].connect(self.set_text_how_work_is)
-
+        #self.select_shifr.addItem("Публичный ключ")
 
         #############################################################
         #MAIN SCREEN
@@ -81,27 +75,41 @@ class Ui_MainWindow(object):
         self.line_inp_key = QtWidgets.QLineEdit(self.centralwidget)
         self.line_inp_key.setGeometry(QtCore.QRect(60, 119, 520, 36))
         self.line_inp_key.setPlaceholderText("Введите ключ")
+        self.line_inp_key.setObjectName("line_inp_key")
 
         #text input
         self.line_inp_text = QtWidgets.QTextEdit(self.centralwidget)
         self.line_inp_text.setGeometry(QtCore.QRect(60, 48, 520, 107))
         self.line_inp_text.setPlaceholderText("Введите текст")
+        self.line_inp_text.setObjectName("line_inp_text")
 
         #button action
         self.but_act = QtWidgets.QPushButton(self.centralwidget)
-        self.but_act.setGeometry(QtCore.QRect(60, 159, 520, 36))
+        self.but_act.setGeometry(QtCore.QRect(60, 155, 520, 36))
+        self.but_act.setObjectName("but_act")
 
         #text output
         self.line_out_text = QtWidgets.QTextEdit(self.centralwidget)
         self.line_out_text.setGeometry(QtCore.QRect(60, 386, 520, 107))
+        self.line_out_text.setReadOnly(True)
 
         #key output
         self.line_out_key = QtWidgets.QTextEdit(self.centralwidget)
         self.line_out_key.setGeometry(QtCore.QRect(60, 497, 520, 36))
+        self.line_out_key.setReadOnly(True)
 
         #button how
         self.but_how_work = QtWidgets.QPushButton(self.centralwidget)
         self.but_how_work.setGeometry(QtCore.QRect(60, 350, 520, 36))
+        self.but_how_work.setObjectName("button_how_work")
+
+        #############################################################
+        #DARK BACKGROUND
+
+        self.dark_background = QtWidgets.QPushButton(self.centralwidget)
+        self.dark_background.setGeometry(QtCore.QRect(0, 0, 640, 386))
+        self.dark_background.setObjectName("dark_background")
+        self.dark_background.hide()
 
         #############################################################
         #HISTORY
@@ -122,21 +130,15 @@ class Ui_MainWindow(object):
         self.but_clear = QtWidgets.QPushButton(self.history)
         self.but_clear.setGeometry(QtCore.QRect(74, 2, 70, 36))
 
-
+        #############################################################
         MainWindow.setCentralWidget(self.centralwidget)
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def set_text_how_work_is(self, text_how_work_is):
-        '''changes the name of the cipher for the bot_how_work button'''
-        self.selected_shifr = self.select_shifr.currentText()
-        self.how_work_is = "Как работает " + self.selected_shifr
-        self.but_how_work.setText(self.how_work_is)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.but_act_encode.setText(_translate("MainWindow", "Зашифровать"))
+        self.but_act_encode.setText(_translate("MainWindow", "Зашифровка"))
         self.but_act_decode.setText(_translate("MainWindow", "Р"))
         self.but_act.setText(_translate("MainWindow", self.action))
         self.but_history.setText(_translate("MainWindow", "История"))

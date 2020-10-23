@@ -76,12 +76,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             #Animation for line input key
             self.anim_line_inp_key = QPropertyAnimation(self.line_inp_key, b"geometry")
-            self.anim_line_inp_key.setEndValue(QRect(60, 159, 520, 36))
+            self.anim_line_inp_key.setEndValue(QRect(60, 155, 520, 36))
             self.anim_line_inp_key.setDuration(200)
 
             #Animation for button action
             self.anim_but_act = QPropertyAnimation(self.but_act, b"geometry")
-            self.anim_but_act.setEndValue(QRect(60, 199, 520, 36))
+            self.anim_but_act.setEndValue(QRect(60, 191, 520, 36))
             self.anim_but_act.setDuration(200)
 
             #starting animations
@@ -123,7 +123,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             #Animation for button action
             self.anim_but_act = QPropertyAnimation(self.but_act, b"geometry")
-            self.anim_but_act.setEndValue(QRect(60, 159, 520, 36))
+            self.anim_but_act.setEndValue(QRect(60, 155, 520, 36))
             self.anim_but_act.setDuration(200)
 
             #starting animations
