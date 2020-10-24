@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         #############################################################
         #BACKGROUND PICTURE
 
-        self.pixmap = QPixmap("Sources/Picture/background.png")
+        self.pixmap = QPixmap("Sources/Picture/background2.png")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(0, 0, 640, 386))
         self.label.setPixmap(self.pixmap)
@@ -61,7 +61,7 @@ class Ui_MainWindow(object):
 
         #dropdown menu shifr
         self.select_shifr = QtWidgets.QComboBox(self.menu)
-        self.select_shifr.setGeometry(QtCore.QRect(506, 4, 130, 36))
+        self.select_shifr.setGeometry(QtCore.QRect(486, 4, 150, 36))
         self.select_shifr.addItem("Шифр Цезаря")
         self.select_shifr.addItem("Шифр Виженера")
         self.select_shifr.addItem("Транспозиция")
@@ -73,7 +73,7 @@ class Ui_MainWindow(object):
 
         #key input
         self.line_inp_key = QtWidgets.QLineEdit(self.centralwidget)
-        self.line_inp_key.setGeometry(QtCore.QRect(60, 119, 520, 36))
+        self.line_inp_key.setGeometry(QtCore.QRect(60, 155, 520, 36))
         self.line_inp_key.setPlaceholderText("Введите ключ")
         self.line_inp_key.setObjectName("line_inp_key")
 
@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
 
         #button action
         self.but_act = QtWidgets.QPushButton(self.centralwidget)
-        self.but_act.setGeometry(QtCore.QRect(60, 155, 520, 36))
+        self.but_act.setGeometry(QtCore.QRect(60, 191, 520, 36))
         self.but_act.setObjectName("but_act")
 
         #text output
@@ -112,6 +112,23 @@ class Ui_MainWindow(object):
         self.dark_background.hide()
 
         #############################################################
+        #ERROR MESSAGE
+
+        self.error_place = QtWidgets.QWidget(self.centralwidget)
+        self.error_place.setGeometry(QtCore.QRect(170, 145, 300, 96))
+        self.error_place.setObjectName("error_place")
+        self.error_place.hide()
+
+        self.label_error_text = QtWidgets.QLabel(self.error_place)
+        self.label_error_text.setGeometry(QtCore.QRect(0, 0, 300, 60))
+        self.label_error_text.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_error_text.setObjectName("label_error_text")
+
+        self.but_error_close = QtWidgets.QPushButton(self.error_place)
+        self.but_error_close.setGeometry(QtCore.QRect(0, 60, 300, 36))
+        self.but_error_close.setObjectName("but_error_close")
+
+        #############################################################
         #HISTORY
 
         #history place
@@ -125,10 +142,10 @@ class Ui_MainWindow(object):
         self.history_box.setSpacing(8)
 
         self.but_close = QtWidgets.QPushButton(self.history)
-        self.but_close.setGeometry(QtCore.QRect(2, 2, 70, 36))
+        self.but_close.setGeometry(QtCore.QRect(4, 4, 70, 36))
 
         self.but_clear = QtWidgets.QPushButton(self.history)
-        self.but_clear.setGeometry(QtCore.QRect(74, 2, 70, 36))
+        self.but_clear.setGeometry(QtCore.QRect(78, 4, 70, 36))
 
         #############################################################
         MainWindow.setCentralWidget(self.centralwidget)
@@ -140,8 +157,9 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.but_act_encode.setText(_translate("MainWindow", "Зашифровка"))
         self.but_act_decode.setText(_translate("MainWindow", "Р"))
-        self.but_act.setText(_translate("MainWindow", self.action))
+        self.but_act.setText(_translate("MainWindow", "Зашифровать"))
         self.but_history.setText(_translate("MainWindow", "История"))
         self.but_how_work.setText(_translate("MainWindow", self.how_work_is))
         self.but_close.setText(_translate("MainWindow", "Закрыть"))
         self.but_clear.setText(_translate("MainWindow", "Очистить"))
+        self.but_error_close.setText(_translate("MainWindow", "Закрыть"))

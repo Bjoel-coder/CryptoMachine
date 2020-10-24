@@ -1,18 +1,9 @@
 @import "fonts.css";
 
-.QWidget#menubar {
-  background-color: $primary;
-  border-bottom: $std-border-size $std-border-style $std-border-color;
-}
-
-.QWidget#history { background-color: $primary; }
-
-.QPushButton#dark_background { background-color: $dark-background}
-
-.QToolTip {
+QToolTip {
     border: $std-border-size $std-border-style $std-border-color;
     padding: 5px;
-    border-radius: $std-border-size;
+    border-radius: $std-border-radius;
     opacity: 200;
 }
 
@@ -28,6 +19,46 @@
   }
 }
 
+QComboBox {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+  background-color: $light;
+  font-size: $std-font-size;
+  font-family: $std-font;
+  font-weight: $std-font-weight;
+  &:hover {
+    background-color: $std-hover-background;
+  }
+  &::drop-down{
+      color: rgba(0,0,0,0);
+      border-radius: $std-border-radius;
+  }
+}
+QListView {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: 7px;
+}
+
+
+.QLineEdit {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+  background-color: $light;
+}
+
+.QTextEdit{
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+  background-color: $light;
+}
+
+
+//MENUBAR
+.QWidget#menubar {
+  background-color: $primary;
+  border-bottom: $std-border-size $std-border-style $std-border-color;
+}
+
 .QPushButton#but_act_encode {
   border: $std-border-size $std-border-style $std-border-color;
   border-top-right-radius: 0px;
@@ -40,6 +71,47 @@
   border-bottom-left-radius: 0px;
 }
 
+
+//HISTORY
+.QWidget#history { background-color: $primary; }
+
+//ERROR MESSAGE
+.QWidget#error_place {
+  background-color: $light;
+  border: $std-border-size $std-border-style $std-border-color;
+  border-radius: $std-border-radius;
+}
+
+.QLabel#label_error_text {
+  font-size: $std-font-size;
+  color: $danger;
+  font-size: $std-font-size;
+}
+
+.QPushButton#but_error_close {
+  border: $std-border-size $std-border-style $std-border-color;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: $std-border-radius;
+  border-bottom-right-radius: $std-border-radius;
+  background-color: $primary;
+  color: $light;
+  font-size: $std-font-size;
+  &:hover{
+    background-color: $hover-background-primary;
+  }
+}
+
+
+//DARK BACKGROUND
+.QPushButton#dark_background {
+  border: 0px;
+  border-radius: 0px;
+  background-color: $dark-background
+}
+
+
+//MAIN SCREEN
 .QPushButton#but_act {
   border: $std-border-size $std-border-style $std-border-color;
   border-top-left-radius: 0px;
@@ -63,39 +135,10 @@
   border-bottom-right-radius: 0px;
 }
 
-.QComboBox {
-  border: $std-border-size $std-border-style $std-border-color;
-  border-radius: $std-border-radius;
-  background-color: $light;
-  font-size: $std-font-size;
-  font-family: $std-font;
-  font-weight: $std-font-weight;
-  &:hover {
-    background-color: $std-hover-background;
-  }
-  &::drop-down{
-      background-color: rgba(0,0,0,0);
-      border-radius: $std-border-radius;
-  }
-}
-
-
-.QLineEdit {
-  border: $std-border-size $std-border-style $std-border-color;
-  border-radius: $std-border-radius;
-  background-color: $light;
-}
-
 .QLineEdit#line_inp_key {
   border: $std-border-size $std-border-style $std-border-color;
   border-bottom: 0px;
   border-radius: 0px;
-}
-
-.QTextEdit{
-  border: $std-border-size $std-border-style $std-border-color;
-  border-radius: $std-border-radius;
-  background-color: $light;
 }
 
 .QTextEdit#line_inp_text{

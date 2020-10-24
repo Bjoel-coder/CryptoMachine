@@ -1,3 +1,4 @@
 Шифр Цезаря
 from Moduls.Caesar_shifr import Caesar_shifr
 Caesar_shifr.Caesar()
+{"encode":{"encode":True, "line_inp_key":True, "line_out_text":True, "line_out_key":False}, "decode":{"decode":True, "line_inp_key":True, "line_out_text":True, "line_out_key":False}}

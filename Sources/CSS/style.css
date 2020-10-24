@@ -39,23 +39,10 @@
   src: local("Arimo Bold Italic"), local("Arimo-BoldItalic"), url("../fonts/arimo-v15-latin-ext_latin_cyrillic-ext_cyrillic-700italic.eot?#iefix") format("embedded-opentype"), url("../fonts/arimo-v15-latin-ext_latin_cyrillic-ext_cyrillic-700italic.woff2") format("woff2"), url("../fonts/arimo-v15-latin-ext_latin_cyrillic-ext_cyrillic-700italic.woff") format("woff"), url("../fonts/arimo-v15-latin-ext_latin_cyrillic-ext_cyrillic-700italic.ttf") format("truetype"), url("../fonts/arimo-v15-latin-ext_latin_cyrillic-ext_cyrillic-700italic.svg#Arimo") format("svg");
   /* Legacy iOS */
 }
-.QWidget#menubar {
-  background-color: #3e93cd;
-  border-bottom: 2px solid #3d3d3d;
-}
-
-.QWidget#history {
-  background-color: #3e93cd;
-}
-
-.QPushButton#dark_background {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.QToolTip {
+QToolTip {
   border: 2px solid #3d3d3d;
   padding: 5px;
-  border-radius: 2px;
+  border-radius: 7px;
   opacity: 200;
 }
 
@@ -71,6 +58,44 @@
   background-color: #e3e3e3;
 }
 
+QComboBox {
+  border: 2px solid #3d3d3d;
+  border-radius: 7px;
+  background-color: #ffffff;
+  font-size: 14px;
+  font-family: "Arimo";
+  font-weight: 700;
+}
+QComboBox:hover {
+  background-color: #e3e3e3;
+}
+QComboBox::drop-down {
+  color: rgba(0, 0, 0, 0);
+  border-radius: 7px;
+}
+
+QListView {
+  border: 2px solid #3d3d3d;
+  border-radius: 7px;
+}
+
+.QLineEdit {
+  border: 2px solid #3d3d3d;
+  border-radius: 7px;
+  background-color: #ffffff;
+}
+
+.QTextEdit {
+  border: 2px solid #3d3d3d;
+  border-radius: 7px;
+  background-color: #ffffff;
+}
+
+.QWidget#menubar {
+  background-color: #3e93cd;
+  border-bottom: 2px solid #3d3d3d;
+}
+
 .QPushButton#but_act_encode {
   border: 2px solid #3d3d3d;
   border-top-right-radius: 0px;
@@ -81,6 +106,42 @@
   border: 2px solid #3d3d3d;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+}
+
+.QWidget#history {
+  background-color: #3e93cd;
+}
+
+.QWidget#error_place {
+  background-color: #ffffff;
+  border: 2px solid #3d3d3d;
+  border-radius: 7px;
+}
+
+.QLabel#label_error_text {
+  font-size: 14px;
+  color: #ff0000;
+  font-size: 14px;
+}
+
+.QPushButton#but_error_close {
+  border: 2px solid #3d3d3d;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  background-color: #3e93cd;
+  color: #ffffff;
+  font-size: 14px;
+}
+.QPushButton#but_error_close:hover {
+  background-color: #1867b8;
+}
+
+.QPushButton#dark_background {
+  border: 0px;
+  border-radius: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .QPushButton#but_act {
@@ -106,38 +167,10 @@
   border-bottom-right-radius: 0px;
 }
 
-.QComboBox {
-  border: 2px solid #3d3d3d;
-  border-radius: 7px;
-  background-color: #ffffff;
-  font-size: 14px;
-  font-family: "Arimo";
-  font-weight: 700;
-}
-.QComboBox:hover {
-  background-color: #e3e3e3;
-}
-.QComboBox::drop-down {
-  background-color: rgba(0, 0, 0, 0);
-  border-radius: 7px;
-}
-
-.QLineEdit {
-  border: 2px solid #3d3d3d;
-  border-radius: 7px;
-  background-color: #ffffff;
-}
-
 .QLineEdit#line_inp_key {
   border: 2px solid #3d3d3d;
   border-bottom: 0px;
   border-radius: 0px;
-}
-
-.QTextEdit {
-  border: 2px solid #3d3d3d;
-  border-radius: 7px;
-  background-color: #ffffff;
 }
 
 .QTextEdit#line_inp_text {

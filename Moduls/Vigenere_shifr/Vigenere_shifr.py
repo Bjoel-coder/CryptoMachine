@@ -1,5 +1,3 @@
-print("Vigenere")
-
 class Vigenere:
     def encode(self, text_input):
 
