@@ -2,6 +2,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QPropertyAnimation, QRect
 from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtGui import QPixmap
 from Sources.Gui.Gui_py import Ui_MainWindow
 import sys
 import time
@@ -18,16 +19,145 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     main_class = "Caesar_shifr.Caesar()"
     index = 0
     begin_free_place = 231
+    params_how_work = None
+    slide_num = 0
+    slide_pos = 0
+    width_place_how_work = 640
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
-
         self.but_history.clicked.connect(self.btnHistory)
         self.but_close.clicked.connect(self.historyClose)
         self.but_act_encode.clicked.connect(self.selectAction)
         self.but_act_decode.clicked.connect(self.selectAction)
         self.but_act.clicked.connect(self.defineAction)
         self.select_shifr.activated[str].connect(self.selectShifr)
+        self.but_how_work.clicked.connect(self.showHowWork)
+        self.but_close_how_work.clicked.connect(self.closeHowWork)
+        self.but_back_how_work.clicked.connect(lambda state, shift=-1: self.shiftHowWork(shift))
+        self.but_onward_how_work.clicked.connect(lambda state, shift=1: self.shiftHowWork(shift))
+        
+
+
+    def showHowWork(self):
+        print('hi')
+        self.buildHowWork()
+
+
+        self.anim_place_for_how_work = QPropertyAnimation(self.place_for_how_work, b"geometry")
+        self.anim_place_for_how_work.setEndValue(QRect(0, 0, self.width_place_how_work, 386))
+        self.anim_place_for_how_work.setDuration(200)
+
+        self.anim_but_close_how_work = QPropertyAnimation(self.but_close_how_work, b"geometry")
+        self.anim_but_close_how_work.setEndValue(QRect(611, 4, 24, 24))
+        self.anim_but_close_how_work.setDuration(200)
+
+        self.anim_but_back_how_work = QPropertyAnimation(self.but_back_how_work, b"geometry")
+        self.anim_but_back_how_work.setEndValue(QRect(4, 346, 70, 36))
+        self.anim_but_back_how_work.setDuration(200)
+
+        self.anim_but_onward_how_work = QPropertyAnimation(self.but_onward_how_work, b"geometry")
+        self.anim_but_onward_how_work.setEndValue(QRect(566, 346, 70, 36))
+        self.anim_but_onward_how_work.setDuration(200)
+
+        self.anim_place_for_how_work.start()
+        self.anim_but_close_how_work.start()
+        self.anim_but_back_how_work.start()
+        self.anim_but_onward_how_work.start()
+
+    def buildHowWork(self):
+        while self.hboxlayout.count():
+            item = self.hboxlayout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+        train_folder = "Moduls/"+str(moduls_packages[self.index])+"/Training"
+        train_head = "Moduls/"+str(moduls_packages[self.index])+"/Training/Head.txt"
+        with open(train_head, "r", encoding="utf-8") as file:
+            self.params_how_work = dict(eval(file.readline().replace("\n", "")))
+        print(self.params_how_work)
+        print(type(self.params_how_work))
+        count_slides = int(self.params_how_work["slides"])
+        count_theory = int(self.params_how_work["theory"])
+        count_question = int(self.params_how_work["question"])
+        self.width_place_how_work = 640*count_slides
+        self.hboxlayout.setGeometry(QtCore.QRect(-100, 0, self.width_place_how_work, 386))
+        print(self.width_place_how_work)
+        for i in range(count_slides):
+            if i < count_theory:
+                self.lbl_place_how_work = QtWidgets.QLabel()
+                bkg = train_folder + "/" + str(i+1) + ".jpg"
+                print(bkg)
+                self.pixmap_for_lbl = QPixmap(bkg)
+                self.lbl_place_how_work.setPixmap(self.pixmap_for_lbl)
+                self.hboxlayout.addWidget(self.lbl_place_how_work)
+            else:# i < count_slides:
+                self.line_input_answer = QtWidgets.QLineEdit()
+                self.line_input_answer.setPlaceholderText("Введите ответ")
+                self.but_verify_answer = QtWidgets.QPushButton()
+                self.but_verify_answer.setText("Проверить")
+                self.but_verify_answer.clicked.connect(lambda state, numButton=-2+i: self.but_verify_answer_pushed(numButton))
+                #self.vboxlayout = QtWidgets.QHBoxLayout()
+                #self.vboxlayout.addWidget(self.line_input_answer)
+                #self.vboxlayout.addWidget(self.but_verify_answer)
+                self.hboxlayout.addWidget(self.but_verify_answer)
+            #else:
+                #self.space = QtWidgets.QWidget()
+                #self.hboxlayout.addWidget(self.space)
+
+
+    def but_verify_answer_pushed(self, numButton):
+        print(numButton)
+
+    def shiftHowWork(self, shift):
+        self.slide_num += shift
+        shift = self.slide_pos - 640 * shift
+        self.slide_pos = shift
+        print("slide_num:", self.slide_num)
+        print("slide_pos:", self.slide_pos)
+        if self.slide_num != 0:
+            self.but_back_how_work.show()
+        else:
+            self.but_back_how_work.hide()
+
+        if self.slide_num != (self.params_how_work["slides"]-1):
+            self.but_onward_how_work.show()
+        else:
+            self.but_onward_how_work.hide()
+
+
+        self.anim_shift_how_work = QPropertyAnimation(self.place_for_how_work, b"geometry")
+        self.anim_place_for_how_work.setEndValue(QRect(shift, 0, self.width_place_how_work, 386))
+        self.anim_place_for_how_work.setDuration(200)
+
+        self.anim_place_for_how_work.start()
+
+    def closeHowWork(self):
+        self.anim_place_for_how_work = QPropertyAnimation(self.place_for_how_work, b"geometry")
+        self.anim_place_for_how_work.setEndValue(QRect(0, 386, 640, 386))
+        self.anim_place_for_how_work.setDuration(200)
+
+        self.anim_but_close_how_work = QPropertyAnimation(self.but_close_how_work, b"geometry")
+        self.anim_but_close_how_work.setEndValue(QRect(611, 390, 25, 25))
+        self.anim_but_close_how_work.setDuration(200)
+
+        self.anim_but_back_how_work = QPropertyAnimation(self.but_back_how_work, b"geometry")
+        self.anim_but_back_how_work.setEndValue(QRect(4, 732, 70, 36))
+        self.anim_but_back_how_work.setDuration(200)
+
+        self.anim_but_onward_how_work = QPropertyAnimation(self.but_onward_how_work, b"geometry")
+        self.anim_but_onward_how_work.setEndValue(QRect(566, 732, 70, 36))
+        self.anim_but_onward_how_work.setDuration(200)
+
+        self.anim_place_for_how_work.start()
+        self.anim_but_close_how_work.start()
+        self.anim_but_back_how_work.start()
+        self.anim_but_onward_how_work.start()
+
+        self.but_back_how_work.hide()
+        self.slide_num = 0
+        self.slide_pos = 0
+
 
     def selectShifr(self, text_how_work_is):
         #changes the name of the cipher for the bot_how_work button
@@ -348,6 +478,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 #INIT moduls, classes, titles, params_encode_decode
 moduls_packages = [modul_package for modul_package in os.listdir("Moduls")]
+print(moduls_packages)
 
 for i in range(len(moduls_packages)):
     perm_moduls = [perm_modul for perm_modul in os.listdir("Moduls/"+str(moduls_packages[i])) if perm_modul.endswith("head.txt")]

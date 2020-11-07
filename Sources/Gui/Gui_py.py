@@ -104,6 +104,34 @@ class Ui_MainWindow(object):
         self.but_how_work.setObjectName("button_how_work")
 
         #############################################################
+        #HOW WORK
+        self.place_for_how_work = QtWidgets.QWidget(self.centralwidget)
+        self.place_for_how_work.setGeometry(QtCore.QRect(0, 386, 640, 386))
+
+        self.pixmap_for_how_work = QPixmap("Sources/Picture/0.jpg")
+        self.bkg_for_how_work = QtWidgets.QLabel(self.place_for_how_work)
+        self.bkg_for_how_work.setGeometry(QtCore.QRect(0, 0, 6400, 386))
+        self.bkg_for_how_work.setPixmap(self.pixmap_for_how_work)
+
+        self.hboxlayout = QtWidgets.QHBoxLayout(self.place_for_how_work)
+        self.hboxlayout.setGeometry(QtCore.QRect(-100, 0, 640, 386))
+        self.hboxlayout.setSpacing(0)
+
+        self.but_close_how_work = QtWidgets.QPushButton(self.centralwidget)
+        self.but_close_how_work.setGeometry(QtCore.QRect(611, 390, 24, 24))
+        self.cross = QPixmap("Sources/Picture/cross_25.png")
+        self.but_close_how_work.setIcon(QtGui.QIcon(self.cross))
+
+        self.but_back_how_work = QtWidgets.QPushButton(self.centralwidget)
+        self.but_back_how_work.setGeometry(QtCore.QRect(4, 732, 70, 36))
+        self.but_back_how_work.setText("Назад")
+        self.but_back_how_work.hide()
+
+        self.but_onward_how_work = QtWidgets.QPushButton(self.centralwidget)
+        self.but_onward_how_work.setGeometry(QtCore.QRect(566, 732, 70, 36))
+        self.but_onward_how_work.setText("Дальше")
+
+        #############################################################
         #DARK BACKGROUND
 
         self.dark_background = QtWidgets.QPushButton(self.centralwidget)
