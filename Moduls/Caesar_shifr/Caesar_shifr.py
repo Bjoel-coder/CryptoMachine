@@ -17,6 +17,7 @@ class Caesar:
         return self.shifr("decode", text_input, key_input)
 
     def shifr(self, action, text_input, key_input):
+        text_input = text_input.strip().lower()
         if text_input == "":
             return "Введите текст!", "", "#$/ERROR/$#"
         try:
