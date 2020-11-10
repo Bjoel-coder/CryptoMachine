@@ -1,4 +1,4 @@
 Шифр Виженера
 from Moduls.Vigenere_shifr import Vigenere_shifr
 Vigenere_shifr.Vigenere()
-{"encode":{"encode":True, "line_inp_key":True, "line_out_text":True, "line_out_key":False}, "decode":{"decode":True, "line_inp_key":False, "line_out_text":True, "line_out_key":False}}
+{"encode":{"encode": True, "line_inp_key": True, "line_out_text": True, "line_out_key": False}, "decode":{"decode": True, "line_inp_key": True, "line_out_text": True, "line_out_key": False}}

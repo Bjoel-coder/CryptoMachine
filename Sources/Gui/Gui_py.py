@@ -63,6 +63,7 @@ class Ui_MainWindow(object):
         self.select_shifr = QtWidgets.QComboBox(self.menu)
         self.select_shifr.setGeometry(QtCore.QRect(486, 4, 150, 36))
         self.select_shifr.addItem("Шифр Цезаря")
+        self.select_shifr.addItem("Азбука Морзе")
         self.select_shifr.addItem("Шифр Виженера")
         self.select_shifr.addItem("Транспозиция")
         self.select_shifr.addItem("Настоящие кода")
@@ -114,7 +115,6 @@ class Ui_MainWindow(object):
         self.bkg_for_how_work.setPixmap(self.pixmap_for_how_work)
 
         self.hboxlayout = QtWidgets.QHBoxLayout(self.place_for_how_work)
-        self.hboxlayout.setGeometry(QtCore.QRect(-100, 0, 640, 386))
         self.hboxlayout.setSpacing(0)
 
         self.but_close_how_work = QtWidgets.QPushButton(self.centralwidget)
