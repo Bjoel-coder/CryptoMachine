@@ -23,6 +23,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     slide_num = 0
     slide_pos = 0
     width_place_how_work = 640
+    input_answer_lines = []
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -36,13 +37,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.but_close_how_work.clicked.connect(self.closeHowWork)
         self.but_back_how_work.clicked.connect(lambda state, shift=-1: self.shiftHowWork(shift))
         self.but_onward_how_work.clicked.connect(lambda state, shift=1: self.shiftHowWork(shift))
-        
 
 
     def showHowWork(self):
-        print('hi')
+        self.but_onward_how_work.show()
         self.buildHowWork()
-
 
         self.anim_place_for_how_work = QPropertyAnimation(self.place_for_how_work, b"geometry")
         self.anim_place_for_how_work.setEndValue(QRect(0, 0, self.width_place_how_work, 386))
@@ -72,7 +71,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             if widget is not None:
                 widget.deleteLater()
         train_folder = "Moduls/"+str(moduls_packages[self.index])+"/Training"
+        print(train_folder)
         train_head = "Moduls/"+str(moduls_packages[self.index])+"/Training/Head.txt"
+        print(train_head)
         with open(train_head, "r", encoding="utf-8") as file:
             self.params_how_work = dict(eval(file.readline().replace("\n", "")))
         print(self.params_how_work)
@@ -81,33 +82,56 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         count_theory = int(self.params_how_work["theory"])
         count_question = int(self.params_how_work["question"])
         self.width_place_how_work = 640*count_slides
-        self.hboxlayout.setGeometry(QtCore.QRect(-100, 0, self.width_place_how_work, 386))
         print(self.width_place_how_work)
         for i in range(count_slides):
+            quest_num = count_question-count_slides+i
+            self.lbl_place_how_work = QtWidgets.QLabel()
+            bkg = train_folder + "/" + str(i+1) + ".jpg"
+            print(bkg)
+            self.pixmap_for_lbl = QPixmap(bkg)
+            self.lbl_place_how_work.setPixmap(self.pixmap_for_lbl)
             if i < count_theory:
-                self.lbl_place_how_work = QtWidgets.QLabel()
-                bkg = train_folder + "/" + str(i+1) + ".jpg"
-                print(bkg)
-                self.pixmap_for_lbl = QPixmap(bkg)
-                self.lbl_place_how_work.setPixmap(self.pixmap_for_lbl)
                 self.hboxlayout.addWidget(self.lbl_place_how_work)
             else:# i < count_slides:
                 self.line_input_answer = QtWidgets.QLineEdit()
-                self.line_input_answer.setPlaceholderText("Введите ответ")
-                self.but_verify_answer = QtWidgets.QPushButton()
-                self.but_verify_answer.setText("Проверить")
-                self.but_verify_answer.clicked.connect(lambda state, numButton=-2+i: self.but_verify_answer_pushed(numButton))
-                #self.vboxlayout = QtWidgets.QHBoxLayout()
-                #self.vboxlayout.addWidget(self.line_input_answer)
-                #self.vboxlayout.addWidget(self.but_verify_answer)
-                self.hboxlayout.addWidget(self.but_verify_answer)
-            #else:
-                #self.space = QtWidgets.QWidget()
-                #self.hboxlayout.addWidget(self.space)
+                self.line_input_answer.setFixedSize(520, 36)
+                self.line_input_answer.setPlaceholderText('Введите ответ')
+                self.input_answer_lines.append(self.line_input_answer)
 
+                self.hbl1 = QtWidgets.QHBoxLayout()
+                self.hbl1.addWidget(self.line_input_answer)
+
+                self.but_verify_answer = QtWidgets.QPushButton()
+                self.but_verify_answer.setFixedSize(520, 36)
+                self.but_verify_answer.setText("Проверить")
+                self.but_verify_answer.clicked.connect(lambda state, numButton=quest_num: self.but_verify_answer_pushed(numButton))
+
+                self.hbl2 = QtWidgets.QHBoxLayout()
+                self.hbl2.addWidget(self.but_verify_answer)
+
+                self.space = QtWidgets.QWidget()
+
+                self.vboxlayout = QtWidgets.QVBoxLayout()
+                self.vboxlayout.addWidget(self.lbl_place_how_work)
+                self.vboxlayout.addLayout(self.hbl1)
+                self.vboxlayout.addLayout(self.hbl2)
+                self.vboxlayout.addWidget(self.space)
+                self.vboxlayout.setSpacing(8)
+                #self.vboxlayout.setContentsMargins(0, 0, 0, 220)
+
+                self.hboxlayout.addLayout(self.vboxlayout)
 
     def but_verify_answer_pushed(self, numButton):
-        print(numButton)
+        train_head = "Moduls/"+str(moduls_packages[self.index])+"/Training/Head.txt"
+        with open(train_head, "r", encoding="utf-8") as file:
+            file.readline()
+            training_datas = dict(eval(file.readline().replace("\n", "")))
+        answer = str(training_datas[numButton])
+        input_answer = str(self.input_answer_lines[numButton].text())
+        if input_answer == answer:
+            self.alert("Верный ответ!", "#$/SUCCESS/$#")
+        else:
+            self.alert("Неверный ответ!", "#$/ERROR/$#")
 
     def shiftHowWork(self, shift):
         self.slide_num += shift
@@ -157,7 +181,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.but_back_how_work.hide()
         self.slide_num = 0
         self.slide_pos = 0
+        self.input_answer_lines = []
 
+    def alert(self, message, type_alert):
+        self.dark_background.clicked.connect(self.alertClose)
+        self.but_error_close.clicked.connect(self.alertClose)
+        self.label_error_text.setText(message)
+        if type_alert == "#$/ERROR/$#":
+            self.label_error_text.setStyleSheet("color: #ff0000;")
+        elif type_alert == "#$/SUCCESS/$#":
+            self.label_error_text.setStyleSheet("color: #28a745;")
+        self.dark_background.show()
+        self.error_place.show()
+
+    def alertClose(self):
+        self.error_place.hide()
+        self.dark_background.hide()
 
     def selectShifr(self, text_how_work_is):
         #changes the name of the cipher for the bot_how_work button
@@ -171,10 +210,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         if (self.action == "Зашифровка") and (params_encode_decode[self.index]["encode"]["encode"] == False):
             self.selectAction()
-            self.errorMessage(self.selected_shifr + " нельзя зашифровать!")
+            self.alert(self.selected_shifr + " нельзя зашифровать!", "#$/ERROR/$#")
         elif (self.action == "Расшифровка") and (params_encode_decode[self.index]["decode"]["decode"] == False):
             self.selectAction()
-            self.errorMessage(self.selected_shifr + " нельзя расшифровать!")
+            self.alert(self.selected_shifr + " нельзя расшифровать!", "#$/ERROR/$#")
         elif (self.action == "Зашифровка") and (params_encode_decode[self.index]["encode"]["encode"] == True):
             if params_encode_decode[self.index]["decode"]["line_inp_key"] == True:
                 move_inp_key = 155
@@ -281,7 +320,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.line_out_text.setText('')
                 self.line_inp_key.setText('')
             elif params_encode_decode[self.index]["decode"]["decode"] == False:
-                self.errorMessage(self.selected_shifr + " нельзя расшифровать!")
+                self.alert(self.selected_shifr + " нельзя расшифровать!", "#$/ERROR/$#")
 
         #changing action to encode
         elif self.action == "Расшифровка":
@@ -334,7 +373,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.line_out_text.setText('')
                 self.line_inp_key.setText('')
             elif params_encode_decode[self.index]["encode"]["encode"] == False:
-                self.errorMessage(self.selected_shifr + " нельзя зашифровать!")
+                self.alert(self.selected_shifr + " нельзя зашифровать!", "#$/ERROR/$#")
 
     def btnHistory(self):
         #assignment dark_background to history
@@ -362,17 +401,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         #start animation hide history place
         self.but_history.start()
-
-    def errorMessage(self, message):
-        self.dark_background.clicked.connect(self.errorMessageClose)
-        self.but_error_close.clicked.connect(self.errorMessageClose)
-        self.label_error_text.setText(message)
-        self.dark_background.show()
-        self.error_place.show()
-
-    def errorMessageClose(self):
-        self.error_place.hide()
-        self.dark_background.hide()
 
     def defineAction(self):
         #definition of action
@@ -411,13 +439,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             key = self.line_inp_key.text()
             #call function with arguments text
             exec("func = main.encode(text, key)")
-            text_output, key_output, ErrorStatus= eval("func")
+            text_output, key_output, alert_type = eval("func")
         else:
             #call function with arguments text
             exec("func = main.encode(text)")
-            text_output, key_output, ErrorStatus= eval("func")
+            text_output, key_output, alert_type = eval("func")
 
-        if ErrorStatus != "#$/ERROR/$#":
+        if alert_type == "":
             #set text in line_out_text and line_out_key
             self.line_out_text.setText(text_output)
             self.line_out_key.setText(key_output)
@@ -428,7 +456,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         else:
             message = text_output
-            self.errorMessage(message)
+            print(alert_type)
+            self.alert(message, alert_type)
 
     def callDecode(self):
         if params_encode_decode[self.index]["decode"]["line_out_text"] == True:
@@ -462,9 +491,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             #call function with arguments text
             exec("func = main.decode(text)")
-        text_output, key_output, ErrorStatus = eval("func")
+        text_output, key_output, alert_type = eval("func")
 
-        if ErrorStatus != "#$/ERROR/$#":
+        if alert_type == "":
             #set text in line_out_text
             self.line_out_text.setText(text_output)
             self.line_out_key.setText(key_output)
@@ -474,7 +503,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.anim_line_out_text.start()
         else:
             message = text_output
-            self.errorMessage(message)
+            self.alert(message, alert_type)
 
 #INIT moduls, classes, titles, params_encode_decode
 moduls_packages = [modul_package for modul_package in os.listdir("Moduls")]
@@ -491,7 +520,24 @@ for i in range(len(moduls_packages)):
         classes_shifr.append(file.readline().replace("\n", ""))
         params_encode_decode.append(dict(eval(file.readline().replace("\n", ""))))
     exec(comand)
-#print(params_encode_decode)
+
+class Alert(MainWindow):
+    def alert(self, message, type_alert):
+        self.dark_background.clicked.connect(self.alertClose)
+        self.but_error_close.clicked.connect(self.alertClose)
+        self.label_error_text.setText(message)
+        if type_alert == "#$/ERROR/$#":
+            print("ку")
+        elif type_alert == "#$/SUCCESS/$#":
+            pass
+        self.dark_background.show()
+        self.error_place.show()
+
+    def alertClose(self):
+        self.error_place.hide()
+        self.dark_background.hide()
+
+
 
 #APPLICATION
 app = QApplication([])
