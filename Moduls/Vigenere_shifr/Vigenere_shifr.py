@@ -42,7 +42,7 @@ class Vigenere:
                     len_alphabet_key = len(alphabet_key)
             if (alphabet_text != None):
                 if action == "encode":
-                    ind = alphabet_text.index(text[i]) + alphabet_key.index(key[l])
+                    ind = alphabet_text.index(text[i]) + alphabet_key.index(key[l]) + 1
                     ind = ind%len_alphabet_text
                     text[i] = alphabet_text[ind]
                     print(text[i])
@@ -52,7 +52,7 @@ class Vigenere:
                         l += 1
                 else:
                     key_index = alphabet_key.index(key[l])%len_alphabet_text
-                    ind = alphabet_text.index(text[i]) - key_index
+                    ind = alphabet_text.index(text[i]) - key_index - 1
                     if ind<0:
                         ind = len_alphabet_text+ind
                         text[i] = alphabet_text[ind]
@@ -68,4 +68,4 @@ class Vigenere:
         text = "".join(text)
         text_output = str(text)
         key_output = str(key)
-        return text_output, "", None
+        return text_output, "", ""
