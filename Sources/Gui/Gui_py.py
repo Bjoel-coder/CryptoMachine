@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
         #initial values and constants
         self.n = 172
         self.selected_shifr = "Шифр Цезаря"
-        self.action = "Зашифровка"
+        self.action = "Шифрование"
         self.how_work_is = "Как работает " + self.selected_shifr
 
         #############################################################
@@ -65,7 +65,7 @@ class Ui_MainWindow(object):
         self.select_shifr.addItem("Шифр Цезаря")
         self.select_shifr.addItem("Азбука Морзе")
         self.select_shifr.addItem("Шифр Виженера")
-        self.select_shifr.addItem("Транспозиция")
+        self.select_shifr.addItem("Публичный ключ")
         self.select_shifr.addItem("Настоящие кода")
         #self.select_shifr.addItem("Публичный ключ")
 
@@ -147,10 +147,12 @@ class Ui_MainWindow(object):
         self.error_place.setObjectName("error_place")
         self.error_place.hide()
 
-        self.label_error_text = QtWidgets.QLabel(self.error_place)
-        self.label_error_text.setGeometry(QtCore.QRect(0, 0, 300, 60))
-        self.label_error_text.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_error_text.setObjectName("label_error_text")
+        self.textEdit_error_text = QtWidgets.QTextEdit(self.error_place)
+        self.textEdit_error_text.setFixedSize(300, 60)
+        #self.textEdit_error_text.setHtml("<center>Текст по центру</center>")
+        #self.textEdit_error_text.setAlignment(QtCore.Qt.AlignCenter)
+        self.textEdit_error_text.setReadOnly(True)
+        self.textEdit_error_text.setObjectName("textEdit_error_text")
 
         self.but_error_close = QtWidgets.QPushButton(self.error_place)
         self.but_error_close.setGeometry(QtCore.QRect(0, 60, 300, 36))
@@ -182,8 +184,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.but_act_encode.setText(_translate("MainWindow", "Зашифровка"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Crypto Machine"))
+        self.but_act_encode.setText(_translate("MainWindow", "Шифрование"))
         self.but_act_decode.setText(_translate("MainWindow", "Р"))
         self.but_act.setText(_translate("MainWindow", "Зашифровать"))
         self.but_history.setText(_translate("MainWindow", "История"))

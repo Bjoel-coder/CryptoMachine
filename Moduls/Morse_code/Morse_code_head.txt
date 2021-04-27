@@ -1,0 +1,4 @@
+Азбука Морзе
+from Moduls.Morse_code import Morse_code
+Morse_code.Morse()
+{"encode":{"encode": True, "line_inp_key": False, "line_out_text": True, "line_out_key": False}, "decode":{"decode": True, "line_inp_key": False, "line_out_text": True, "line_out_key": False}}

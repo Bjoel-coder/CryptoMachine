@@ -186,11 +186,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def alert(self, message, type_alert):
         self.dark_background.clicked.connect(self.alertClose)
         self.but_error_close.clicked.connect(self.alertClose)
-        self.label_error_text.setText(message)
+        self.textEdit_error_text.setHtml('''<div style="text-align: center">{}</div>'''.format(message))
         if type_alert == "#$/ERROR/$#":
-            self.label_error_text.setStyleSheet("color: #ff0000;")
+            self.textEdit_error_text.setStyleSheet("color: #ff0000;")
         elif type_alert == "#$/SUCCESS/$#":
-            self.label_error_text.setStyleSheet("color: #28a745;")
+            self.textEdit_error_text.setStyleSheet("color: #28a745;")
         self.dark_background.show()
         self.error_place.show()
 
@@ -208,13 +208,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #init main_class
         self.main_class = classes_shifr[self.index]
 
-        if (self.action == "Зашифровка") and (params_encode_decode[self.index]["encode"]["encode"] == False):
+        if (self.action == "Шифрование") and (params_encode_decode[self.index]["encode"]["encode"] == False):
             self.selectAction()
             self.alert(self.selected_shifr + " нельзя зашифровать!", "#$/ERROR/$#")
         elif (self.action == "Расшифровка") and (params_encode_decode[self.index]["decode"]["decode"] == False):
             self.selectAction()
             self.alert(self.selected_shifr + " нельзя расшифровать!", "#$/ERROR/$#")
-        elif (self.action == "Зашифровка") and (params_encode_decode[self.index]["encode"]["encode"] == True):
+        elif (self.action == "Шифрование") and (params_encode_decode[self.index]["encode"]["encode"] == True):
             if params_encode_decode[self.index]["decode"]["line_inp_key"] == True:
                 move_inp_key = 155
                 move_but = 191
@@ -270,7 +270,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def selectAction(self):
         #changing action to decode
-        if self.action == "Зашифровка":
+        if self.action == "Шифрование":
             if params_encode_decode[self.index]["decode"]["decode"] == True:
                 self.action = "Расшифровка"
                 if params_encode_decode[self.index]["decode"]["line_inp_key"] == True:
@@ -314,7 +314,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
                 #set text
                 self.but_act_decode.setText('Расшифровка')
-                self.but_act_encode.setText('З')
+                self.but_act_encode.setText('Ш')
                 self.but_act.setText('Расшифровать')
                 self.line_inp_text.setText('')
                 self.line_out_text.setText('')
@@ -325,7 +325,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #changing action to encode
         elif self.action == "Расшифровка":
             if params_encode_decode[self.index]["encode"]["encode"] == True:
-                self.action = "Зашифровка"
+                self.action = "Шифрование"
                 if params_encode_decode[self.index]["encode"]["line_inp_key"] == True:
                     move_inp_key = 155
                     move_but = 191
@@ -366,7 +366,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.line_out_key.move(60, 497)
 
                 #set text
-                self.but_act_encode.setText('Зашифровка')
+                self.but_act_encode.setText('Шифрование')
                 self.but_act_decode.setText('Р')
                 self.but_act.setText('Зашифровать')
                 self.line_inp_text.setText('')
@@ -404,7 +404,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def defineAction(self):
         #definition of action
-        if self.action == "Зашифровка":
+        if self.action == "Шифрование":
             self.callEncode()
 
         #definition of action
@@ -542,7 +542,7 @@ class Alert(MainWindow):
 #APPLICATION
 app = QApplication([])
 application = MainWindow()
-qstyle = open("Sources/CSS/style.css", "r")
+qstyle = open("Sources/CSS/theme.css", "r")
 application.setStyleSheet(qstyle.read())
 qstyle.close()
 application.show()

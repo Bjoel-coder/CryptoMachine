@@ -51,7 +51,7 @@ class Caesar:
                 text = "".join(text)
                 text_output = str(text)
                 key_output = str(key)
-                return text_output, "", None
+                return text_output, "", ""
             else:
                 return "Ключ должен быть числом >=0 и <=100!", "", "#$/ERROR/$#"
         except:

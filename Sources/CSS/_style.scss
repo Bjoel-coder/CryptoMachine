@@ -82,9 +82,10 @@ QListView {
   border-radius: $std-border-radius;
 }
 
-.QLabel#label_error_text {
-  font-size: $std-font-size;
-  color: $danger;
+.QTextEdit#textEdit_error_text {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 0px;
   font-size: $std-font-size;
 }
 
